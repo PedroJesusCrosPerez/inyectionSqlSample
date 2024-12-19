@@ -4,34 +4,31 @@ $username = "root";
 $password = "root";
 $dbname = "testdb";
 
-// Crear conexión
+// Create conection
 $conn = new mysqli($servername, $username, $password, $dbname);
 
-// Verificar conexión
+// Verify conection
 if ($conn->connect_error) {
-    die("Conexión fallida: " . $conn->connect_error);
+    die("Failed conection: " . $conn->connect_error);
 }
 
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $user = $_POST['username'];
     $pass = $_POST['password'];
 
-    // Generar consulta SQL
+    // Generate statement SQL
     $sql = "SELECT * FROM users WHERE username = '$user' AND password = '$pass'";
-    
-    // Imprimir consulta para depuración
-    //echo "Consulta generada: $sql <br>";
 
     $result = $conn->query($sql);
 
     if (!$result) {
-        die("Error en la consulta SQL: " . $conn->error);
+        die("Error in statement SQL: " . $conn->error);
     }
 
     if ($result->num_rows > 0) {
-        echo "Inicio de sesión exitoso";
+        echo "Login succesfully ✅";
     } else {
-        echo "Usuario o contraseña incorrectos";
+        echo "Invalid credentials";
     }
 }
 
